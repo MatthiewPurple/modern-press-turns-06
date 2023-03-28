@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>modern_press_turns_smtv_06</RootNamespace>
-    <AssemblyName>modern_press_turns_smtv_06</AssemblyName>
+    <RootNamespace>modern_press_turns_smtiv_06</RootNamespace>
+    <AssemblyName>modern_press_turns_smtiv_06</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

@@ -3,27 +3,13 @@ using HarmonyLib;
 using Il2Cpp;
 using modern_press_turns_06;
 
-[assembly: MelonInfo(typeof(ModerPressTurns06), "Modern Press Turns [SMT V] (0.6 ver.)", "1.0.0", "Matthiew Purple")]
+[assembly: MelonInfo(typeof(ModerPressTurns06), "Modern Press Turns [SMT IV] (0.6 ver.)", "1.0.0", "Matthiew Purple")]
 [assembly: MelonGame("アトラス", "smt3hd")]
 
 namespace modern_press_turns_06;
 public class ModerPressTurns06 : MelonMod
 {
-    // PASS
-    [HarmonyPatch(typeof(nbActionProcess), nameof(nbActionProcess.SetAction_WAIT))]
-    private class Patch
-    {
-        public static void Prefix()
-        {
-            // If there are blinking press turns AND full press turns
-            if (nbMainProcess.nbGetMainProcessData().press4_ten != nbMainProcess.nbGetMainProcessData().press4_p && nbMainProcess.nbGetMainProcessData().press4_p != 0)
-            {
-                PressTurnsAdjustements.SecondaryFullToBlinking(); // Changes a secondary full press turn into a blinking press turn
-            }
-
-            // If there are only full press turns or only blinking press turns, the default behavior is the same as in SMT V
-        }
-    }
+    // PASS (same as in SMTIV)
 
     // DISMISS
     [HarmonyPatch(typeof(nbActionProcess), nameof(nbActionProcess.SetAction_RETURN))]
@@ -39,15 +25,9 @@ public class ModerPressTurns06 : MelonMod
                 {
                     PressTurnsAdjustements.MainFullToBlinking(); // Changes the main press turn from full to blinking
                 }
-
-                // If there is at least one blinking press turn
-                else
-                {
-                    PressTurnsAdjustements.SecondaryFullToBlinking(); // Changes a secondary full press turn into a blinking press turn
-                }
             }
 
-            // If there are no full press turns, the default behavior is the same as in SMT V
+            // If there are no full press turns or at least on blinking press turn, the default behavior is the same as in SMT IV
         }
     }
 
@@ -75,15 +55,9 @@ public class ModerPressTurns06 : MelonMod
                 {
                     PressTurnsAdjustements.MainFullToBlinking(); // Changes the main press turn from full to blinking
                 }
-
-                // If there is at least one blinking press turn
-                else
-                {
-                    PressTurnsAdjustements.SecondaryFullToBlinking(); // Changes a secondary full press turn into a blinking press turn
-                }
             }
 
-            // If there are no full press turns, the default behavior is the same as in SMT V
+            // If there are no full press turns or at least on blinking press turn, the default behavior is the same as in SMT IV
         }
     }
 
@@ -96,7 +70,11 @@ public class ModerPressTurns06 : MelonMod
             // If there is at least one full press turn
             if (nbMainProcess.nbGetMainProcessData().press4_p != 0)
             {
-                PressTurnsAdjustements.SecondaryFullToBlinking(); // Only this line is required as the game consumes the press turn AFTER this is called
+                // If there are no blinking press turns
+                if (nbMainProcess.nbGetMainProcessData().press4_p == nbMainProcess.nbGetMainProcessData().press4_ten)
+                {
+                    PressTurnsAdjustements.SecondaryFullToBlinking(); // Only this line is required as the game consumes the press turn AFTER this is called
+                }
             }
         }
     }
