@@ -3,11 +3,11 @@ using HarmonyLib;
 using Il2Cpp;
 using modern_press_turns_06;
 
-[assembly: MelonInfo(typeof(ModerPressTurns06), "Modern Press Turns [SMT IV] (0.6 ver.)", "1.0.0", "Matthiew Purple")]
+[assembly: MelonInfo(typeof(ModernPressTurns06), "Modern Press Turns [SMT IV] (0.6 ver.)", "1.0.0", "Matthiew Purple")]
 [assembly: MelonGame("アトラス", "smt3hd")]
 
 namespace modern_press_turns_06;
-public class ModerPressTurns06 : MelonMod
+public class ModernPressTurns06 : MelonMod
 {
     // PASS (same as in SMTIV)
 
